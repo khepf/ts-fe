@@ -24,7 +24,18 @@
           required: false
         },
         post: {
-          type: Object
+          type: Object,
+          validator: obj => {
+            const keyIsValid = typeof obj['.key'] === 'string'
+            const textIsValid = typeof obj.text === 'string'
+            if (!textIsValid) {
+              console.error('post prop must include "text" attribute')
+            }
+            if (!keyIsValid) {
+              console.error('post prop must include "key" attribute')
+            }
+            return keyIsValid && textIsValid
+          }
         }
       },
       data () {
